@@ -41,6 +41,8 @@ npm install mongodb --save
 
 ## Listado
 
+Accederemos al listado mediante la URL <http://localhost:8080/listado>
+
 Cre el fichero `index.js`:
 
 ```javascript
@@ -106,6 +108,58 @@ block contenido
           td #{u.apellido}
           td #{u.edad}
           td #{u.pais}
+```
+
+## Grabación de datos
+
+Ya tenemos un listado disponible en <http://localhost:8080/listado>. Vamos a implementar ahora la inserción de datos en la base de datos `gestion` de **MongoDB**.
+
+Modificamos el fichero `index.js`:
+
+```javascript
+var express = require('express');
+var mongodb = require('mongodb')
+var bodyParser = require('body-parser');
+
+var app = express();
+
+app.set('view engine', 'jade');
+
+app.use(bodyParser.urlencoded({extended: true}));
+
+var dbUrl = 'mongodb://localhost:27017/gestion';
+
+app.get('/formulario', function (req, res) {
+  res.render('formulario');
+});
+
+app.post('/graba-usuario', function (req, res) {
+  let usuario = {
+    nombre: req.body.nombre,
+    apellido: req.body.apellido,
+    edad: req.body.edad,
+    pais: req.body.pais
+  };
+
+  console.log(JSON.stringify(usuario));
+
+  mongodb.connect(dbUrl, function(err, db) {
+    db.collection('usuarios').insert(usuario);
+  });
+  
+  res.render('graba-usuario');
+})
+
+app.get('/listado', function (req, res) {
+  mongodb.connect(dbUrl, function(err, db) {
+    db.collection('usuarios').find().toArray(function(err, docs) {
+      datos.usuarios = docs;
+      res.render('listado', datos);
+    });
+  });
+});
+
+app.listen(8080);
 ```
 
 Si te ha resultado útil este repositorio :wrench: recuerda que puedes ponerle una estrellita :star:
