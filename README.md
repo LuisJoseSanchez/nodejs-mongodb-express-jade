@@ -55,7 +55,6 @@ var dbUrl = 'mongodb://localhost:27017/gestion';
 
 app.get('/listado', function (req, res) {
   mongodb.connect(dbUrl, function(err, db) {
-    datos = {prueba: "hola"};
     db.collection('usuarios').find().toArray(function(err, docs) {
       datos.usuarios = docs;
       res.render('listado', datos);
@@ -66,7 +65,9 @@ app.get('/listado', function (req, res) {
 app.listen(8080);
 ```
 
-Crea el fichero `base.jade` dentro de la carpeta `views`. Este fichero será la plantilla base. Hemos utilizado **MaterializeCSS** para los estilos.
+Crea el fichero `base.jade` dentro de la carpeta `views`. Este fichero será la plantilla base.
+
+Hemos utilizado **MaterializeCSS** para los estilos.
 
 ```jade
 <!DOCTYPE html>
