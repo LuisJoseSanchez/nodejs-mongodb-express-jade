@@ -28,6 +28,17 @@ Y por último, restaura la base de datos de MongoDB:
 mongorestore -d gestion dump/gestion
 ```
 
+## Creación del proyecto
+
+```console
+mkdir mongodb-minicrud
+cd mongodb-minicrud/
+npm init
+npm install express --save
+npm install jade --save
+npm install mongodb --save
+```
+
 ## Listado 
 
 Si te ha resultado útil este repositorio :wrench: recuerda que puedes ponerle una estrellita :star:
