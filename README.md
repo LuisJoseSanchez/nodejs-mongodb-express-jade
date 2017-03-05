@@ -162,4 +162,47 @@ app.get('/listado', function (req, res) {
 app.listen(8080);
 ```
 
+Crea el fichero `formulario.jade` que será el formulario que recoga los datos que se van a grabar: nombre, apellido, edad y pais.
+
+```jade
+extends ./base.jade
+block contenido
+
+  div(class="container")
+    div(class="row")
+      h1 Registro de usuarios
+
+    form(action="/graba-usuario", method="post")
+      div(class="row")
+
+        div(class="col s12 m6 l6")
+        label(for="nombre") Usuario
+        input(type="text", name="nombre", placeholder="Nombre" id="nombre")
+
+        div(class="col s12 m6 l6")
+        label(for="apellido") Apellido
+        input(type="text", name="apellido", placeholder="Apellido" id="apellido")
+
+        label(for="edad") Edad
+        input(type="tenumber", name="edad", placeholder="Edad" id="edad")
+
+        label(for="pais") Pais
+        input(type="text", name="pais", placeholder="Pais" id="pais")
+
+      div(class="row")
+        div(class="col s12 center")
+          input(type="submit", value="Aceptar")
+```
+
+Por último, el fichero `graba-usuario.jade` indicará que los datos se han guardado correctamente.
+
+```jade
+extends ./base.jade
+block contenido
+  div(class="container")
+    p Usuario guardado correctamente.
+```
+
+Para introducir nuevos datos, puedes ir a <http://localhost:8080/formulario> y para ver un listado con todos los usuarios a <http://localhost:8080/listado>.
+
 Si te ha resultado útil este repositorio :wrench: recuerda que puedes ponerle una estrellita :star:
